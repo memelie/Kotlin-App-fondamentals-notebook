@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import java.lang.Integer.parseInt
 
 class MainActivity : AppCompatActivity() {
+    lateinit var diceImage : ImageView
+    var diceValue = 0;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,12 +18,10 @@ class MainActivity : AppCompatActivity() {
         countUpButton.setOnClickListener { countUp() }
         val resetButton: Button = findViewById(R.id.reset_button)
         resetButton.setOnClickListener { reset() }
+        diceImage = findViewById(R.id.dice_image)
     }
 
-    var diceValue = 0;
-
     private fun replaceImage(number: Int) {
-        val diceImage: ImageView = findViewById(R.id.dice_image)
         val drawableResource = when (number) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
@@ -38,10 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun rollDice() {
         val randomInt = (1..6).random()
-        replaceImage(randomInt)
-
-        // Toast.makeText(this, "button clicked",
-        //    Toast.LENGTH_SHORT).show()
+        replaceImage(randomInt);
     }
 
     private fun countUp() {
