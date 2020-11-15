@@ -3,6 +3,7 @@ package com.example.diceroller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import java.lang.Integer.parseInt
@@ -19,33 +20,42 @@ class MainActivity : AppCompatActivity() {
         resetButton.setOnClickListener { reset() }
     }
 
+    var diceValue = 0;
+
+    private fun replaceImage(number: Int) {
+        val diceImage: ImageView = findViewById(R.id.dice_image)
+        val drawableResource = when (number) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+        diceValue = number;
+        diceImage.setImageResource(drawableResource)
+    }
+
     private fun rollDice() {
-        val resultText: TextView = findViewById(R.id.result_text)
         val randomInt = (1..6).random()
-        resultText.text = randomInt.toString()
+        replaceImage(randomInt)
 
         // Toast.makeText(this, "button clicked",
         //    Toast.LENGTH_SHORT).show()
     }
 
     private fun countUp() {
-        val resultText: TextView = findViewById(R.id.result_text)
         var newInt: Int;
-        newInt = if (resultText.text.toString().contains(regex=Regex("[0-9]"))) {
-            val currentVal: Int = parseInt(resultText.text.toString());
-            if (currentVal != 6) {
-                currentVal + 1;
-            } else {
-                currentVal;
-            }
+        val currentVal: Int = diceValue;
+        newInt = if (currentVal != 6) {
+            currentVal + 1;
         } else {
-            1;
-        };
-        resultText.text = newInt.toString()
+            currentVal;
+        }
+        replaceImage(newInt)
     }
 
     private fun reset() {
-        val resultText: TextView = findViewById(R.id.result_text)
-        resultText.text = "0"
+        replaceImage(0)
     }
 }
