@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun replaceImage(number: Int) {
         val drawableResource = when (number) {
+            0 -> R.drawable.empty_dice
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
