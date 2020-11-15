@@ -8,6 +8,8 @@ import android.widget.ImageView
 class MainActivity : AppCompatActivity() {
     lateinit var diceImage : ImageView
     var diceValue = 0;
+    lateinit var diceImageDouble : ImageView
+    var diceValueDouble = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +21,10 @@ class MainActivity : AppCompatActivity() {
         val resetButton: Button = findViewById(R.id.reset_button)
         resetButton.setOnClickListener { reset() }
         diceImage = findViewById(R.id.dice_image)
+        diceImageDouble = findViewById(R.id.dice_image_double)
     }
 
-    private fun replaceImage(number: Int) {
+    private fun getImage(number: Int): Int {
         val drawableResource = when (number) {
             0 -> R.drawable.empty_dice
             1 -> R.drawable.dice_1
@@ -31,27 +34,45 @@ class MainActivity : AppCompatActivity() {
             5 -> R.drawable.dice_5
             else -> R.drawable.dice_6
         }
+        return drawableResource;
+    }
+
+    private fun replaceImage(number: Int) {
+        val drawableResource = getImage(number)
         diceValue = number;
         diceImage.setImageResource(drawableResource)
+    }
+
+    private fun replaceImageDouble(number: Int) {
+        val drawableResource = getImage(number)
+        diceValueDouble = number;
+        diceImageDouble.setImageResource(drawableResource)
     }
 
     private fun rollDice() {
         val randomInt = (1..6).random()
         replaceImage(randomInt);
+        val randomIntDouble = (1..6).random()
+        replaceImageDouble(randomIntDouble);
     }
 
     private fun countUp() {
-        var newInt: Int;
-        val currentVal: Int = diceValue;
-        newInt = if (currentVal != 6) {
-            currentVal + 1;
-        } else {
-            currentVal;
+        fun getNewInt (oldInt: Int): Int {
+            if (oldInt != 6) {
+                return oldInt + 1;
+            }
+            return oldInt;
         }
+        val currentVal: Int = diceValue;
+        var newInt = getNewInt(currentVal);
         replaceImage(newInt)
+        val currentValDouble: Int = diceValueDouble;
+        var newIntDouble = getNewInt(currentValDouble);
+        replaceImageDouble(newIntDouble)
     }
 
     private fun reset() {
         replaceImage(0)
+        replaceImageDouble(0)
     }
 }
