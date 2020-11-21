@@ -3,4 +3,11 @@
     <string name="roll_label">Roll</string>
     <string name="count_up_label">Count up</string>
     <string name="reset_label">Reset</string>
+    <string name="about">About</string>
+    <string name="name">Amélie Thery</string>
+    <string name="yellow_star">Yellow star</string>
+    <string name="bio">
+        Hello! My name is Amélie, and I am a mobile developer.\n
+        I have 3 years of experience with React Native, and now I am learning Kotlin, and this is my playground. Feel free to take a look!
+    </string>
 </resources>
